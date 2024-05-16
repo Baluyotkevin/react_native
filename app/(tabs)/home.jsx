@@ -1,10 +1,21 @@
-import { View, Text, FlatList, Image } from 'react-native'
+import { View, Text, FlatList, Image, RefreshControl } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../../constants'
 import SearchInput from '../../components/SearchInput'
+import Trending from '../../components/Trending'
+import Skeleton from '../../components/Skeleton'
+import { useState } from 'react'
 
 
 const Home = () => {
+  const [refreshing, setRefreshing] = useState(false)
+ 
+  const onRefresh = async () => {
+    setRefreshing(true);
+
+    setRefreshing(false);
+  }
+
   return (
     <SafeAreaView className="bg-primary">
       <FlatList 
@@ -34,8 +45,25 @@ const Home = () => {
             </View>
 
             <SearchInput />
+            <View className='w-fuill flex-1 pt-5 pb-8'>
+              <Text className="text-gray-100 text-lg font-pregular mb-3">
+                Latest Videos
+              </Text>
+
+              <Trending 
+                posts={[{ id: 1 }, { id: 2 }, { id: 3 }] ?? []}
+              />
+            </View>
           </View>
         )}
+
+        ListEmptyComponent={() => (
+          <Skeleton 
+            title="No Videos Found"
+            subtitle="Be the first one to ui"
+          />
+        )}
+        refereshControl={<RefreshControl refrehing={refreshing} onRefresh={onRefresh} />}
       />
     </SafeAreaView>
   )
