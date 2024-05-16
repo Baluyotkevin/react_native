@@ -1,5 +1,7 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, Image } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { images } from '../../constants'
+import SearchInput from '../../components/SearchInput'
 
 
 const Home = () => {
@@ -22,7 +24,16 @@ const Home = () => {
                 KB
                 </Text>
               </View>
+              <View className="mt-1 5">
+                <Image 
+                  src={images.logoSmall}
+                  className='w-9 h-10'
+                  resizeMode='contain'
+                />
+              </View>
             </View>
+
+            <SearchInput />
           </View>
         )}
       />
