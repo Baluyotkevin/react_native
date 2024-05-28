@@ -6,45 +6,29 @@ import Trending from '../../components/Trending'
 import Skeleton from '../../components/Skeleton'
 import { useEffect, useState } from 'react'
 import { getAllPosts } from '../../lib/appwrite'
+import useAppwrite from '../../lib/useAppwrite'
+import VideoCard from '../../components/VideoCard'
 
 
 const Home = () => {
-  const [data, setData] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
 
-      try {
-        const response = await getAllPosts();
-
-        setData(response);
-        console.log(data)
-      } catch (err) {
-        Alert.alert('Error', err.message)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchData();
-  }, [])
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
 
   const [refreshing, setRefreshing] = useState(false)
  
   const onRefresh = async () => {
     setRefreshing(true);
-
+    await refetch();
     setRefreshing(false);
   }
 
   return (
     <SafeAreaView className="bg-primary">
       <FlatList 
-        data={[{id: 1}]}
+        data={posts}
         keyExtractor={(item) => item.$id}
         renderItem={({item}) => (
-          <Text className="text-3xl text-white">{item.id}</Text>
+          <VideoCard video={item} />
         )}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-6">
