@@ -4,6 +4,7 @@ import CustomButton from "./CustomButton";
 import Trending from "./Trending";
 import SearchInput from "./SearchInput";
 import Skeleton from "./Skeleton"
+import InfoBox from "./InfoBox";
 
 export {
   VideoCard,
@@ -11,5 +12,6 @@ export {
   CustomButton,
   Trending,
   SearchInput,
-  Skeleton
+  Skeleton,
+  InfoBox
 };

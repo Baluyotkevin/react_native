@@ -6,8 +6,10 @@ import { images } from "../../constants";
 import useAppwrite from "../../lib/useAppwrite";
 import { getAllPosts, getTrendingPosts } from "../../lib/appwrite";
 import { Skeleton, SearchInput, Trending, VideoCard } from "../../components";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Home = () => {
+  const { user, setUser, setIsLogged } = useGlobalContext();
   const { data: posts, refetch } = useAppwrite(getAllPosts);
   const { data: trendingPosts } = useAppwrite(getTrendingPosts);
   const [refreshing, setRefreshing] = useState(false);
@@ -37,10 +39,10 @@ const Home = () => {
             <View className="flex justify-between items-start flex-row mb-6">
               <View>
                 <Text className="font-pmedium text-sm text-gray-100">
-                  Welcome Back
+                  Welcome Back,
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
-                  KB
+                  {user?.username}
                 </Text>
               </View>
 
